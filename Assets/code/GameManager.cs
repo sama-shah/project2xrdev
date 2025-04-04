@@ -4,53 +4,43 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public List<GameObject> tiles;         // list of piano tile cubes
-    public float timeBetweenGlows = 2f;    // time between each glow
+    public List<GameObject> tiles;         // Assign tiles manually in inspector
+    public float timeBetweenPrompts = 2f;
 
-    private GameObject currentTile;        // currently glowing tile
+    private GameObject currentTile;
 
     void Start()
     {
-        if (tiles.Count == 0)
-        {
-            Debug.LogError("No tiles assigned in the GameManager!");
-            return;
-        }
-
-        StartCoroutine(GlowTilesSequence());
+        StartCoroutine(GlowSequence());
     }
 
-    IEnumerator GlowTilesSequence()
+    IEnumerator GlowSequence()
     {
         while (true)
         {
-            yield return new WaitForSeconds(timeBetweenGlows);
+            yield return new WaitForSeconds(timeBetweenPrompts);
 
             // pick a random tile
             int index = Random.Range(0, tiles.Count);
             currentTile = tiles[index];
 
-            // trigger the glow effect
+            // trigger its glow
             currentTile.GetComponent<GlowingTile>().TriggerGlow();
-
-            // optional: add sound here if you want to auto-play it with glow
-            // AudioSource audio = currentTile.GetComponent<AudioSource>();
-            // if (audio) audio.Play();
         }
     }
 
-    // call this when player taps a tile
     public void OnTileClicked(GameObject clickedTile)
     {
         if (clickedTile == currentTile)
         {
-            Debug.Log("Correct tile!");
-            // play note or increase score here
+            Debug.Log("Correct tile clicked!");
+            AudioSource audio = clickedTile.GetComponent<AudioSource>();
+            if (audio != null)
+                audio.Play();
         }
         else
         {
             Debug.Log("Wrong tile.");
-            // maybe end game or deduct points
         }
     }
 }

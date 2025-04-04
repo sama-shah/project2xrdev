@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5126885776240654091}
   - component: {fileID: 6243498525495680998}
   - component: {fileID: 542696343401354143}
+  - component: {fileID: 3849924904440564434}
+  - component: {fileID: 4875677565851059975}
   m_Layer: 0
   m_Name: sharp
   m_TagString: Untagged
@@ -117,7 +119,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
@@ -219,3 +221,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3849924904440564434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281301939552653773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d168a66fa41774aa5b0aa47e410a2751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 0, g: 1, b: 1, a: 1}
+  glowDuration: 0.5
+  fadeDuration: 0.5
+--- !u!114 &4875677565851059975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281301939552653773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa581f67e2994fca9b84f42aabe3fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

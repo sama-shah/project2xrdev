@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class GlowingTile : MonoBehaviour
 {
-    public Color glowColor = Color.cyan;    // color to glow
-    public float glowDuration = 1.0f;       // how long the glow lasts
+    public Color glowColor = Color.cyan;
+    public float glowDuration = 0.5f;
+    public float fadeDuration = 0.5f;
 
     private Material tileMaterial;
     private Color originalColor;
@@ -11,10 +12,8 @@ public class GlowingTile : MonoBehaviour
 
     void Start()
     {
-        // get and clone the material so each tile has its own instance
         tileMaterial = GetComponent<Renderer>().material;
-        originalColor = tileMaterial.GetColor("_EmissionColor");
-        tileMaterial.EnableKeyword("_EMISSION");
+        originalColor = tileMaterial.color;
     }
 
     public void TriggerGlow()
@@ -26,11 +25,19 @@ public class GlowingTile : MonoBehaviour
     private System.Collections.IEnumerator GlowEffect()
     {
         isGlowing = true;
-        tileMaterial.SetColor("_EmissionColor", glowColor);
+        tileMaterial.color = glowColor;
 
         yield return new WaitForSeconds(glowDuration);
 
-        tileMaterial.SetColor("_EmissionColor", originalColor);
+        float t = 0;
+        while (t < fadeDuration)
+        {
+            tileMaterial.color = Color.Lerp(glowColor, originalColor, t / fadeDuration);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        tileMaterial.color = originalColor;
         isGlowing = false;
     }
 }
