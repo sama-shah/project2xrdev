@@ -865,7 +865,7 @@ MonoBehaviour:
   - {fileID: 4254301435553083231}
   - {fileID: 4254301435553083230}
   timeBetweenPrompts: 2
-  minTimeBetweenPrompts: 0.5
+  minTimeBetweenPrompts: 1
   difficultyIncreaseFactor: 0.95
   difficultyIncreaseInterval: 5
   score: 0
