@@ -107,29 +107,65 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnTileClicked(GameObject clickedTile)
-    {
-        if (!gameActive) return;
+    // public void OnTileClicked(GameObject clickedTile)
+    // {
+    //     if (!gameActive) return;
         
-        if (clickedTile == currentTile)
+    //     if (clickedTile == currentTile)
+    //     {
+    //         Debug.Log("Correct tile clicked!");
+            
+    //         // Play sound using the GlowingTile's method
+    //         GlowingTile glowTile = clickedTile.GetComponent<GlowingTile>();
+    //         if (glowTile != null)
+    //         {
+    //             glowTile.PlaySound();
+    //         }
+            
+    //         // Update score and streak
+    //         score++;
+    //         streak++;
+    //         UpdateScoreDisplay();
+            
+    //         Debug.Log("Score: " + score + " | Streak: " + streak);
+    //     }
+    // }
+
+    public void OnTileClicked(GameObject clickedTile)
+{
+    if (!gameActive) return;
+
+    if (clickedTile == currentTile)
+    {
+        Debug.Log("Correct tile clicked!");
+
+        // Play sound using the GlowingTile's method
+        GlowingTile glowTile = clickedTile.GetComponent<GlowingTile>();
+        if (glowTile != null)
         {
-            Debug.Log("Correct tile clicked!");
-            
-            // Play sound using the GlowingTile's method
-            GlowingTile glowTile = clickedTile.GetComponent<GlowingTile>();
-            if (glowTile != null)
-            {
-                glowTile.PlaySound();
-            }
-            
-            // Update score and streak
-            score++;
-            streak++;
-            UpdateScoreDisplay();
-            
-            Debug.Log("Score: " + score + " | Streak: " + streak);
+            glowTile.PlaySound();
         }
+
+        // Update score and streak
+        score++;
+        streak++;
+        UpdateScoreDisplay();
+
+        Debug.Log("Score: " + score + " | Streak: " + streak);
     }
+    else
+    {
+        // ✨ NEW: show red and trigger game over
+        Renderer renderer = clickedTile.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = Color.red;
+        }
+
+        OnWrongTileClicked(); // 👈 call game over
+    }
+}
+
     
     public void OnWrongTileClicked()
     {
