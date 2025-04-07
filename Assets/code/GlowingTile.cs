@@ -9,7 +9,7 @@ public class GlowingTile : MonoBehaviour
     public Material errorMaterial;     // Red material for wrong hits
     
     [Header("Settings")]
-    public float glowDuration = 4.0f;
+    public float glowDuration = 10.0f;
     
     private MeshRenderer _renderer;
     private AudioSource _audioSource;
