@@ -4,22 +4,23 @@ using TMPro;
 
 public class XRController : MonoBehaviour
 {
-    public TextMeshPro outText;
+    // public TextMeshPro outText;
     public XRNode handRole = XRNode.LeftHand;
 
     void Update()
     {
         InputDevice controller = InputDevices.GetDeviceAtXRNode(handRole);
-        outText.text = "none";
+        // outText.text = "none";
 
 
         controller.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger);
-        if (trigger)
-        {
-            outText.text = "trigger";
-        }
+        // if (trigger)
+        // {
+        //     outText.text = "trigger";
+        // }
     }
 }
+
 
 
 
