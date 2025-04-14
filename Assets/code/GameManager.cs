@@ -33,6 +33,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
+        // TEMPORARY: Force UI visibility for testing
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+            Debug.Log("Forcing game over panel to be visible for testing");
+        }
+        ///
+
         _nextPromptTime = Time.time + timeBetweenPrompts;
         
         // Get or add an AudioSource for game sounds
@@ -226,9 +235,19 @@ public class GameManager : MonoBehaviour
     
     private void UpdateScoreDisplay()
     {
+        // if (scoreText != null)
+        // {
+        //     scoreText.text = "Score: " + score;
+        // }
+        Debug.Log("Updating score display to: " + score);
         if (scoreText != null)
         {
             scoreText.text = "Score: " + score;
+            Debug.Log("Score text updated to: " + scoreText.text);
+        }
+        else
+        {
+            Debug.LogError("Score text reference is null!");
         }
     }
 }

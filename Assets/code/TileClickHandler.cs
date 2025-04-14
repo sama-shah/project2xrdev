@@ -7,8 +7,11 @@ public class TileClickHandler : MonoBehaviour
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+
+        // Replace the obsolete FindObjectOfType - debugging
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
         glowingTile = GetComponent<GlowingTile>();
+
     }
 
     void OnMouseDown()

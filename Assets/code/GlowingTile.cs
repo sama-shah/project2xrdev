@@ -114,35 +114,36 @@ public class GlowingTile : MonoBehaviour
     }
     
     void OnTriggerEnter(Collider other)
+{
+    // Check if the collider is the player's hand/controller
+    if (other.CompareTag("Hand") || other.CompareTag("Controller"))
     {
-        // Check if the collider is the player's hand/controller
-        if (other.CompareTag("Hand") || other.CompareTag("Controller"))
+        // Replace the obsolete FindObjectOfType
+        GameManager gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        
+        if (_isGlowing)
         {
-            GameManager gameManager = FindObjectOfType<GameManager>();
+            // Stop glowing
+            StopGlowing();
             
-            if (_isGlowing)
+            // Notify game manager of correct hit
+            if (gameManager != null)
             {
-                // Stop glowing
-                StopGlowing();
-                
-                // Notify game manager of correct hit
-                if (gameManager != null)
-                {
-                    gameManager.OnTileClicked(gameObject);
-                }
+                gameManager.OnTileClicked(gameObject);
             }
-            else
+        }
+        else
+        {
+            // Wrong tile hit - show error and trigger game over
+            ShowError();
+            
+            if (gameManager != null)
             {
-                // Wrong tile hit - show error and trigger game over
-                ShowError();
-                
-                if (gameManager != null)
-                {
-                    gameManager.OnWrongTileClicked();
-                }
+                gameManager.OnWrongTileClicked();
             }
         }
     }
+}
 }
 
 // using UnityEngine;

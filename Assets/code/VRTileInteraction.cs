@@ -40,37 +40,38 @@ public class VRTileInteraction : MonoBehaviour
     }
     
     void CheckForTileHit()
+{
+    // Cast a sphere to detect tiles
+    Collider[] hitColliders = Physics.OverlapSphere(controllerTransform.position, hitRadius, tileLayer);
+    
+    foreach (var hitCollider in hitColliders)
     {
-        // Cast a sphere to detect tiles
-        Collider[] hitColliders = Physics.OverlapSphere(controllerTransform.position, hitRadius, tileLayer);
-        
-        foreach (var hitCollider in hitColliders)
+        GlowingTile glowingTile = hitCollider.GetComponent<GlowingTile>();
+        if (glowingTile != null && glowingTile.IsGlowing())
         {
-            GlowingTile glowingTile = hitCollider.GetComponent<GlowingTile>();
-            if (glowingTile != null && glowingTile.IsGlowing())
+            // Trigger the hit on the glowing tile
+            hitCollider.GetComponent<GlowingTile>().StopGlowing();
+            
+            // Replace the obsolete FindObjectOfType
+            GameManager gameManager = GameObject.FindFirstObjectByType<GameManager>();
+            if (gameManager != null)
             {
-                // Trigger the hit on the glowing tile
-                hitCollider.GetComponent<GlowingTile>().StopGlowing();
-                
-                GameManager gameManager = FindObjectOfType<GameManager>();
-                if (gameManager != null)
-                {
-                    gameManager.OnTileClicked(hitCollider.gameObject);
-                }
-                
-                // Add haptic feedback if desired
-                if (_controller.TryGetHapticCapabilities(out HapticCapabilities capabilities) && 
-                    capabilities.supportsImpulse)
-                {
-                    _controller.SendHapticImpulse(0, 0.5f, 0.1f);
-                }
-                
-                // Break after first hit
-                break;
+                gameManager.OnTileClicked(hitCollider.gameObject);
             }
+            
+            // Add haptic feedback if desired
+            if (_controller.TryGetHapticCapabilities(out HapticCapabilities capabilities) && 
+                capabilities.supportsImpulse)
+            {
+                _controller.SendHapticImpulse(0, 0.5f, 0.1f);
+            }
+            
+            // Break after first hit
+            break;
         }
     }
-    
+}
+
     // Optional: Draw gizmos for debugging
     void OnDrawGizmosSelected()
     {
