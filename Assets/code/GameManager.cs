@@ -164,14 +164,14 @@ public class GameManager : MonoBehaviour
     }
     else
     {
-        // ✨ NEW: show red and trigger game over
+        // NEW: show red and trigger game over
         Renderer renderer = clickedTile.GetComponent<Renderer>();
         if (renderer != null)
         {
             renderer.material.color = Color.red;
         }
 
-        OnWrongTileClicked(); // 👈 call game over
+        OnWrongTileClicked(); // call game over
     }
 }
 

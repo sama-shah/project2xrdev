@@ -99,19 +99,53 @@ public class GlowingTile : MonoBehaviour
     {
         if (_audioSource != null)
         {
+            Debug.Log("Attempting to play sound on " + gameObject.name);
+            
+            // Check if we have an audio clip
+            if (_audioSource.clip == null)
+            {
+                Debug.LogError("No audio clip assigned to AudioSource on " + gameObject.name);
+                return;
+            }
+            
             // Stop the currently playing audio if there is one
             if (currentlyPlayingAudio != null && currentlyPlayingAudio != _audioSource)
             {
                 currentlyPlayingAudio.Stop();
             }
             
+            // Set volume to make sure it's audible
+            _audioSource.volume = 1.0f;
+            
             // Play this tile's audio
             _audioSource.Play();
+            Debug.Log("Sound played successfully");
             
             // Update the reference to the currently playing audio
             currentlyPlayingAudio = _audioSource;
         }
+        else
+        {
+            Debug.LogError("No AudioSource component found on " + gameObject.name);
+        }
     }
+// public void PlaySound()
+    // {
+    //     if (_audioSource != null)
+    //     {
+    //         // Stop the currently playing audio if there is one
+    //         if (currentlyPlayingAudio != null && currentlyPlayingAudio != _audioSource)
+    //         {
+    //             currentlyPlayingAudio.Stop();
+    //         }
+            
+    //         // Play this tile's audio
+    //         _audioSource.Play();
+            
+    //         // Update the reference to the currently playing audio
+    //         currentlyPlayingAudio = _audioSource;
+    //     }
+    // }
     
     void OnTriggerEnter(Collider other)
 {
@@ -123,7 +157,6 @@ public class GlowingTile : MonoBehaviour
         
         if (_isGlowing)
         {
-            // Stop glowing
             StopGlowing();
             
             // Notify game manager of correct hit
