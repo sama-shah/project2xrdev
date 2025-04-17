@@ -11,43 +11,61 @@ public class VRButtonInteraction : MonoBehaviour
         gameManager = GameObject.FindFirstObjectByType<GameManager>();
         uiButton = GetComponent<Button>();
 
-        // Ensure button has a collider
-        Collider col = GetComponent<Collider>();
-        if (col == null)
-        {
-            BoxCollider boxCol = gameObject.AddComponent<BoxCollider>();
-            boxCol.isTrigger = true;
-            // Size the collider based on RectTransform if possible
-            RectTransform rect = GetComponent<RectTransform>();
-            if (rect != null)
-            {
-                boxCol.size = new Vector3(rect.rect.width, rect.rect.height, 0.1f);
-            }
-        }
-        else if (!col.isTrigger)
-        {
-            col.isTrigger = true;
-        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Only respond to objects tagged as Hand or Controller
         if (other.CompareTag("Hand") || other.CompareTag("Controller"))
         {
             Debug.Log("VR controller touched restart button!");
-            
-            // Invoke the button click
-            if (uiButton != null)
+
+            if (gameManager != null && !gameManager.gameActive)
             {
-                uiButton.onClick.Invoke();
-            }
-            
-            // Direct call to restart game as backup
-            if (gameManager != null)
-            {
+                Debug.Log("Restarting game...");
+
+                if (uiButton != null)
+                {
+                    uiButton.onClick.Invoke();
+                }
+
                 gameManager.RestartGame();
+            }
+            else
+            {
+                Debug.Log("Game is still active. Not restarting.");
             }
         }
     }
+
+
+//     void OnTriggerEnter(Collider other)
+//     {
+//         Debug.Log($"[RestartButton] Trigger entered by: {other.name}");
+//         // Only respond to objects tagged as Hand or Controller
+//         if (other.CompareTag("Hand") || other.CompareTag("Controller"))
+//         {
+//             Debug.Log("VR controller touched restart button!");
+            
+//             // Invoke the button click
+//             if (uiButton != null)
+//             {
+//                 Debug.Log("Invoking UI button...");
+//                 uiButton.onClick.Invoke();
+//             }
+//             else
+//             {
+//                 Debug.LogWarning("UI Button is null");
+//             }
+            
+//             // Direct call to restart game as backup
+//             if (gameManager != null)
+//             {
+//                 gameManager.RestartGame();
+//             }
+//             else
+//             {
+//                 Debug.LogWarning("GameManager is null");
+//             }
+//         }
+//     }
 }

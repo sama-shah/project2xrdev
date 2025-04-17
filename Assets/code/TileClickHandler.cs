@@ -29,6 +29,8 @@ public class TileClickHandler : MonoBehaviour
     
     private void HandleVRInteraction()
     {
+        //  glowingTile.PlaySound();
+
         if (glowingTile != null)
         {
             if (glowingTile.IsGlowing())
@@ -50,6 +52,7 @@ public class TileClickHandler : MonoBehaviour
             {
                 // Wrong tile hit
                 glowingTile.ShowError();
+                
                 
                 // Trigger game over
                 if (gameManager != null)

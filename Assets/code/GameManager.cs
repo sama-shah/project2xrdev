@@ -214,6 +214,16 @@ public class GameManager : MonoBehaviour
     
     public void RestartGame()
     {
+
+        // Stop any playing sounds globally
+        AudioSource[] allAudio = FindObjectsOfType<AudioSource>();
+        foreach (var audio in allAudio)
+        {
+            if (audio.isPlaying)
+                audio.Stop();
+        }
+
+
         // Reset game state
         score = 0;
         streak = 0;

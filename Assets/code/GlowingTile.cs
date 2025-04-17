@@ -9,7 +9,7 @@ public class GlowingTile : MonoBehaviour
     public Material errorMaterial;     // Red material for wrong hits
     
     [Header("Settings")]
-    public float glowDuration = 10.0f;
+    public float glowDuration = 50.0f;
     
     private MeshRenderer _renderer;
     private AudioSource _audioSource;
@@ -129,6 +129,8 @@ public class GlowingTile : MonoBehaviour
             Debug.LogError("No AudioSource component found on " + gameObject.name);
         }
     }
+
+    
 // public void PlaySound()
     // {
     //     if (_audioSource != null)

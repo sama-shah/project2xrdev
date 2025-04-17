@@ -14,11 +14,11 @@ public class PianoKey : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
-    {
-        if (audioSource != null)
-        {
-            audioSource.Play();
-        }
-    }
+    // void OnMouseDown()
+    // {
+    //     if (audioSource != null)
+    //     {
+    //         audioSource.Play();
+    //     }
+    // }
 }
